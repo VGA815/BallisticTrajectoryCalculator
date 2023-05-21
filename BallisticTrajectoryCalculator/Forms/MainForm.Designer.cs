@@ -50,6 +50,8 @@ namespace BallisticTrajectoryCalculator.Forms
             label8 = new Label();
             plotView = new OxyPlot.WindowsForms.PlotView();
             clearGraphButton = new Button();
+            chartSizeBox = new TextBox();
+            label9 = new Label();
             SuspendLayout();
             // 
             // createGraphButton
@@ -204,7 +206,6 @@ namespace BallisticTrajectoryCalculator.Forms
             plotView.ZoomHorizontalCursor = Cursors.SizeWE;
             plotView.ZoomRectangleCursor = Cursors.SizeNWSE;
             plotView.ZoomVerticalCursor = Cursors.SizeNS;
-            
             // 
             // clearGraphButton
             // 
@@ -216,11 +217,29 @@ namespace BallisticTrajectoryCalculator.Forms
             clearGraphButton.UseVisualStyleBackColor = true;
             clearGraphButton.Click += clearGraphButton_Click;
             // 
+            // chartSizeBox
+            // 
+            chartSizeBox.Location = new Point(126, 215);
+            chartSizeBox.Name = "chartSizeBox";
+            chartSizeBox.Size = new Size(75, 23);
+            chartSizeBox.TabIndex = 19;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(61, 218);
+            label9.Name = "label9";
+            label9.Size = new Size(59, 15);
+            label9.TabIndex = 20;
+            label9.Text = "Chart Size";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label9);
+            Controls.Add(chartSizeBox);
             Controls.Add(clearGraphButton);
             Controls.Add(plotView);
             Controls.Add(label8);
@@ -248,11 +267,15 @@ namespace BallisticTrajectoryCalculator.Forms
 
         #endregion
         #region PlotModel
-        PlotModel plotModel = new PlotModel { Title = "Bullet Trajectory", Axes = {
+        PlotModel plotModel = new PlotModel
+        {
+            Title = "Bullet Trajectory",
+            Axes = {
             new LinearAxis { Position = AxisPosition.Bottom, Title = "Distance", Unit = "m"},
             new LinearAxis { Position = AxisPosition.Left, Title = "Height", Unit = "m" }
-            } };
-        
+            }
+        };
+
 
         #endregion
 
@@ -275,5 +298,7 @@ namespace BallisticTrajectoryCalculator.Forms
         private Label label8;
         private OxyPlot.WindowsForms.PlotView plotView;
         private Button clearGraphButton;
+        private TextBox chartSizeBox;
+        private Label label9;
     }
 }

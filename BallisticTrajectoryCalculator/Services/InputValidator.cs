@@ -93,6 +93,18 @@
                 else ValidateOnValidate();
             }
         }
+
+        private int _selectedChartSize;
+
+        public int SelectedChartSize
+        {
+            get => _selectedChartSize;
+            set
+            {
+                if (value != null && value > 0) _selectedChartSize = value;
+                else ValidateOnValidate();
+            }
+        }
         public double ballisticCoefficient { get; set; }
     }
 }
