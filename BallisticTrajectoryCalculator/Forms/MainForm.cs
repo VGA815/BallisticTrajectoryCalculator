@@ -1,4 +1,5 @@
-﻿using BallisticTrajectoryCalculator.Services;
+﻿using BallisticTrajectoryCalculator.ExtencionMethods;
+using BallisticTrajectoryCalculator.Services;
 using OxyPlot.Series;
 
 namespace BallisticTrajectoryCalculator.Forms
@@ -43,33 +44,33 @@ namespace BallisticTrajectoryCalculator.Forms
         }
         public double Y(double xo)
         {
-            BallisticCoefficient bc = new();
+            
 
-            var velocity = validator.SelectedInitialVelocity;
-            var temperature = validator.SelectedTemperature;
-            var humidity = validator.SelectedHumidity;
-            var pressure = validator.SelectedPressure;
-            var airDensity = validator.SelectedAirDensity;
+            double velocity = validator.SelectedInitialVelocity;
+            int temperature = validator.SelectedTemperature;
+            int humidity = validator.SelectedHumidity;
+            int pressure = validator.SelectedPressure;
+            double airDensity = validator.SelectedAirDensity;
             string caliber = caliberBox.GetItemText(caliberBox.SelectedItem);
             double diameter = caliberData[caliber].Diameter;
             double lenght = caliberData[caliber].Lenght;
             double weight = caliberData[caliber].Weight;
-            int angle = validator.SelectedAngle;
-            MachNumber machNumber = new(velocity, temperature);
-            DragCoefficient dragCoefficient = new(weight, diameter, lenght, velocity, temperature, pressure, humidity);
-            double bk = bc.CalculateBC(dragCoefficient.GetCd(velocity > machNumber.GetSonicVelocity() ? true : false), diameter, validator.SelectedAirDensity, weight, velocity, temperature);
+            double angle = validator.SelectedAngle;
+            BallisticCoefficient bc = new(weight,diameter,velocity,temperature,airDensity,angle);
+
+            double bk = bc.CalculateBC(diameter, weight);
             validator.ballisticCoefficient = bk;
             //velocity > machNumber.GetSonicVelocity() ? machNumber.GetMachNumber() : 0
             //string dictAsString = string.Join(", ", bullet.Calibers.Select(kv => $"{kv.Key}={kv.Value}"));
-            double k = dragCoefficient.GetCd() / 100000000;
+            double k = bk / 100000;
 
 
             bcBox.Text = Convert.ToString(k);
-            var A = (Math.PI * Math.Pow(diameter, 2) / 4);
+            double A = (Math.PI * Math.Pow(diameter, 2) / 4);
 
             //double v = Math.Sqrt((2 * weight * g) / (airDensity * A * dragCoefficient.GetCd())) * Math.Tanh(Math.Sqrt((airDensity * A * dragCoefficient.GetCd() * g * xo) / (2 * weight)));
             double v = velocity;
-            double a = Math.PI * angle / 180;
+            double a = angle.ToRadians();
 
             //double t = (2 * velocity * Math.Sin(a)) / g;
             double y = 1.5 + xo * Math.Tan(a) - (g * Math.Pow(xo, 2) / (2 * Math.Pow(v, 2) * Math.Pow(Math.Cos(a), 2))) * (1 + k * Math.Pow(v, 2) * xo);

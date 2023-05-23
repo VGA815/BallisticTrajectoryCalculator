@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BallisticTrajectoryCalculator.ExtencionMethods;
 
 namespace BallisticTrajectoryCalculator.Services
 {
@@ -10,28 +6,29 @@ namespace BallisticTrajectoryCalculator.Services
     {
         private double mass;                // масса пули (в граммах)
         private double diameter;            // диаметр пули (в миллиметрах)
-        private double length;              // длина пули (в миллиметрах)
         private double velocity;            // скорость пули (в метрах в секунду)
         private double temperature;         // температура воздуха (в градусах Цельсия)
-        private double pressure;            // атмосферное давление (в миллиметрах ртутного столба)
-        private double humidity;            // относительная влажность (в процентах)
+        private double density;
+        private double angle;
 
-        public DragCoefficient(double mass, double diameter, double length, double velocity, double temperature, double pressure, double humidity)
+        public DragCoefficient(double mass, double diameter, double velocity, double temperature, double density, double angle)
         {
             this.mass = mass;
             this.diameter = diameter;
-            this.length = length;
+
             this.velocity = velocity;
             this.temperature = temperature;
-            this.pressure = pressure;
-            this.humidity = humidity;
+
+
+            this.density = density;
+            this.angle = angle.ToRadians();
         }
 
         public double GetCd(bool isSupersonic = false)
         {
             // Расчёт коэффициента лобового сопротивления
-            double projectileArea = Math.PI * Math.Pow(diameter / 1000.0 / 2.0, 2.0); // площадь поперечного сечения пули (в квадратных метрах)
-            double atmosphericDensity = pressure * 100.0 / (287.058 * (temperature + 273.15)); // плотность воздуха (в килограммах на кубический метр)
+            double projectileArea = diameter.CrossSectionArea(); // площадь поперечного сечения пули (в квадратных метрах)
+            double atmosphericDensity = density; // плотность воздуха (в килограммах на кубический метр)
 
             double Cd;
             if (isSupersonic)
@@ -45,6 +42,24 @@ namespace BallisticTrajectoryCalculator.Services
             }
 
             return Cd;
+        }
+        public double CalculateCdByGaborSommerfeld(double force)
+        {
+            double cd = 2 * force / (density * angle * velocity * velocity);
+            return cd;
+        }
+
+        public double CalculateCdByLabroAndJonker(double k)
+        {
+            double b = 1 / (0.5 * density * angle * velocity * velocity);
+            double cd = k / b;
+            return cd;
+        }
+
+        public double CalculateKByCd(double cd)
+        {
+            double k = 1 / (0.5 * density * angle * velocity * velocity * cd);
+            return k;
         }
     }
 }
