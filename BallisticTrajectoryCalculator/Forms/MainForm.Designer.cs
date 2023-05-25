@@ -52,6 +52,9 @@ namespace BallisticTrajectoryCalculator.Forms
             clearGraphButton = new Button();
             chartSizeBox = new TextBox();
             label9 = new Label();
+            label10 = new Label();
+            windAngleBox = new TextBox();
+            textBox1 = new TextBox();
             SuspendLayout();
             // 
             // createGraphButton
@@ -233,11 +236,37 @@ namespace BallisticTrajectoryCalculator.Forms
             label9.TabIndex = 20;
             label9.Text = "Chart Size";
             // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(51, 252);
+            label10.Name = "label10";
+            label10.Size = new Size(69, 15);
+            label10.TabIndex = 21;
+            label10.Text = "Wind Angle";
+            // 
+            // windAngleBox
+            // 
+            windAngleBox.Location = new Point(126, 249);
+            windAngleBox.Name = "windAngleBox";
+            windAngleBox.Size = new Size(75, 23);
+            windAngleBox.TabIndex = 22;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(126, 278);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(75, 23);
+            textBox1.TabIndex = 23;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(textBox1);
+            Controls.Add(windAngleBox);
+            Controls.Add(label10);
             Controls.Add(label9);
             Controls.Add(chartSizeBox);
             Controls.Add(clearGraphButton);
@@ -300,5 +329,8 @@ namespace BallisticTrajectoryCalculator.Forms
         private Button clearGraphButton;
         private TextBox chartSizeBox;
         private Label label9;
+        private Label label10;
+        private TextBox windAngleBox;
+        private TextBox textBox1;
     }
 }

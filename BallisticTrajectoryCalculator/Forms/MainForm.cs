@@ -1,6 +1,4 @@
-﻿using BallisticTrajectoryCalculator.ExtencionMethods;
-using BallisticTrajectoryCalculator.Services;
-using OxyPlot.Series;
+﻿using OxyPlot.Series;
 
 namespace BallisticTrajectoryCalculator.Forms
 {
@@ -44,7 +42,7 @@ namespace BallisticTrajectoryCalculator.Forms
         }
         public double Y(double xo)
         {
-            
+
 
             double velocity = validator.SelectedInitialVelocity;
             int temperature = validator.SelectedTemperature;
@@ -56,9 +54,9 @@ namespace BallisticTrajectoryCalculator.Forms
             double lenght = caliberData[caliber].Lenght;
             double weight = caliberData[caliber].Weight;
             double angle = validator.SelectedAngle;
-            BallisticCoefficient bc = new(weight,diameter,velocity,temperature,airDensity,angle);
+            BallisticCoefficient bc = new(weight, diameter, velocity, temperature, airDensity, angle);
 
-            double bk = bc.CalculateBC(diameter, weight);
+            double bk = bc.CalculateBC();
             validator.ballisticCoefficient = bk;
             //velocity > machNumber.GetSonicVelocity() ? machNumber.GetMachNumber() : 0
             //string dictAsString = string.Join(", ", bullet.Calibers.Select(kv => $"{kv.Key}={kv.Value}"));

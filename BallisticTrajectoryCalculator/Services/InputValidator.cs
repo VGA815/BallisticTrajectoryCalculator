@@ -3,10 +3,10 @@
     public delegate void ValidateHadler();
     public class InputValidator
     {
-        public event ValidateHadler OnValidate;
+        public event ValidateHadler UnValidated;
         private void ValidateOnValidate()
         {
-            if (OnValidate != null) OnValidate();
+            if (UnValidated != null) UnValidated();
             else Console.WriteLine("OnValidate is null");
         }
         // bcBox Validate
@@ -40,7 +40,7 @@
             get => _selectedAngle;
             set
             {
-                
+
                 if (value != null && value >= 0 && value <= 90) _selectedAngle = value;
                 else ValidateOnValidate();
             }
@@ -52,7 +52,7 @@
             get => _selectedTemperature;
             set
             {
-                
+
                 if (value != null && value > -270 && value < 4000) _selectedTemperature = value;
                 else ValidateOnValidate();
             }
@@ -64,7 +64,7 @@
             get => _selectedPressure;
             set
             {
-                
+
                 if (value != null && value > 0) _selectedPressure = value;
                 else ValidateOnValidate();
             }
@@ -76,7 +76,7 @@
             get => _selectedHumidity;
             set
             {
-                
+
                 if (value != null && value >= 0 && value <= 100) _selectedHumidity = value;
                 else ValidateOnValidate();
             }
@@ -88,7 +88,7 @@
             get => _selectedAirDensity;
             set
             {
-                
+
                 if (value != null && value > 0) _selectedAirDensity = value;
                 else ValidateOnValidate();
             }
