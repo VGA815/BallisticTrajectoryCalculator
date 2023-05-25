@@ -22,19 +22,19 @@ namespace BallisticTrajectoryCalculator.Forms
         private void createGraphButton_Click(object sender, EventArgs e)
         {
 
-            validator.SelectedAngle = Convert.ToInt32(shootAngleBox.Text);
-            validator.SelectedInitialVelocity = Convert.ToDouble(initialVelocityBox.Text);
-            validator.SelectedPressure = Convert.ToInt32(pressureBox.Text);
-            validator.SelectedAirDensity = Convert.ToDouble(airDensityBox.Text);
-            validator.SelectedHumidity = Convert.ToInt32(humidityBox.Text);
-            validator.SelectedTemperature = Convert.ToInt32(temperatureBox.Text);
-            validator.SelectedItemBCbox = caliberBox.GetItemText(caliberBox.SelectedItem);
-            validator.SelectedChartSize = Convert.ToInt32(chartSizeBox.Text);
-            validator.SelectedWindVelocity = Convert.ToDouble(windVelocityBox.Text);
+            validator.ShootingAngle = Convert.ToInt32(shootAngleBox.Text);
+            validator.InitialVelocity = Convert.ToDouble(initialVelocityBox.Text);
+            validator.Pressure = Convert.ToInt32(pressureBox.Text);
+            validator.AirDensity = Convert.ToDouble(airDensityBox.Text);
+            validator.Humidity = Convert.ToInt32(humidityBox.Text);
+            validator.Temperature = Convert.ToInt32(temperatureBox.Text);
+            validator.ItemBCbox = caliberBox.GetItemText(caliberBox.SelectedItem);
+            validator.ChartSize = Convert.ToInt32(chartSizeBox.Text);
+            validator.WindVelocity = Convert.ToDouble(windVelocityBox.Text);
             string caliber = caliberBox.GetItemText(caliberBox.SelectedItem);
             var s = new FunctionSeries(Y, 0, CalculateDistance(), 0.1);
 
-            s.Title = $"Caliber: {caliber}\nInitial velocity: {validator.SelectedInitialVelocity}\nAngle: {validator.SelectedAngle}";
+            s.Title = $"Caliber: {caliber}\nInitial velocity: {validator.InitialVelocity}\nAngle: {validator.ShootingAngle}";
             plotModel.Series.Add(s);
             plotView.Model = plotModel;
             plotView.InvalidatePlot(true);
@@ -45,16 +45,16 @@ namespace BallisticTrajectoryCalculator.Forms
         {
 
 
-            double velocity = validator.SelectedInitialVelocity;
-            int temperature = validator.SelectedTemperature;
-            int humidity = validator.SelectedHumidity;
-            int pressure = validator.SelectedPressure;
-            double airDensity = validator.SelectedAirDensity;
+            double velocity = validator.InitialVelocity;
+            int temperature = validator.Temperature;
+            int humidity = validator.Humidity;
+            int pressure = validator.Pressure;
+            double airDensity = validator.AirDensity;
             string caliber = caliberBox.GetItemText(caliberBox.SelectedItem);
             double diameter = caliberData[caliber].Diameter;
             double lenght = caliberData[caliber].Lenght;
             double weight = caliberData[caliber].Weight;
-            double angle = validator.SelectedAngle;
+            double angle = validator.ShootingAngle;
             double windVelocity = validator.S
             BallisticCoefficient bc = new(weight, diameter, velocity, temperature, airDensity, angle);
             var wa = new WindAffect(bc,);
@@ -88,7 +88,7 @@ namespace BallisticTrajectoryCalculator.Forms
             //double theta = validator.SelectedAngle * Math.PI / 180;
             //double D = (velocity * velocity / g) * (Math.Sin(2 * theta) + Math.Sqrt(Math.Sin(2 * theta) * Math.Sin(2 * theta) + (8 * g * 1.5) / (velocity * velocity)));
             //double D = (Math.Pow(velocity, 2) / g) * Math.Sin(2 * theta * (Math.PI / 180));
-            return validator.SelectedChartSize;
+            return validator.ChartSize;
         }
 
         private void clearGraphButton_Click(object sender, EventArgs e)
