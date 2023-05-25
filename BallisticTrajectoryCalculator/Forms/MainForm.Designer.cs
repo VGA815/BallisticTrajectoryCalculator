@@ -54,7 +54,8 @@ namespace BallisticTrajectoryCalculator.Forms
             label9 = new Label();
             label10 = new Label();
             windAngleBox = new TextBox();
-            textBox1 = new TextBox();
+            windVelocityBox = new TextBox();
+            label11 = new Label();
             SuspendLayout();
             // 
             // createGraphButton
@@ -239,7 +240,7 @@ namespace BallisticTrajectoryCalculator.Forms
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(51, 252);
+            label10.Location = new Point(51, 247);
             label10.Name = "label10";
             label10.Size = new Size(69, 15);
             label10.TabIndex = 21;
@@ -247,24 +248,34 @@ namespace BallisticTrajectoryCalculator.Forms
             // 
             // windAngleBox
             // 
-            windAngleBox.Location = new Point(126, 249);
+            windAngleBox.Location = new Point(126, 244);
             windAngleBox.Name = "windAngleBox";
             windAngleBox.Size = new Size(75, 23);
             windAngleBox.TabIndex = 22;
             // 
-            // textBox1
+            // windVelocityBox
             // 
-            textBox1.Location = new Point(126, 278);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(75, 23);
-            textBox1.TabIndex = 23;
+            windVelocityBox.Location = new Point(126, 273);
+            windVelocityBox.Name = "windVelocityBox";
+            windVelocityBox.Size = new Size(75, 23);
+            windVelocityBox.TabIndex = 23;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(41, 276);
+            label11.Name = "label11";
+            label11.Size = new Size(79, 15);
+            label11.TabIndex = 24;
+            label11.Text = "Wind Velocity";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(textBox1);
+            Controls.Add(label11);
+            Controls.Add(windVelocityBox);
             Controls.Add(windAngleBox);
             Controls.Add(label10);
             Controls.Add(label9);
@@ -331,6 +342,7 @@ namespace BallisticTrajectoryCalculator.Forms
         private Label label9;
         private Label label10;
         private TextBox windAngleBox;
-        private TextBox textBox1;
+        private TextBox windVelocityBox;
+        private Label label11;
     }
 }

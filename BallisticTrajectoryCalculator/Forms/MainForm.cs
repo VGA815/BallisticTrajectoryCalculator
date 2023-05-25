@@ -30,6 +30,7 @@ namespace BallisticTrajectoryCalculator.Forms
             validator.SelectedTemperature = Convert.ToInt32(temperatureBox.Text);
             validator.SelectedItemBCbox = caliberBox.GetItemText(caliberBox.SelectedItem);
             validator.SelectedChartSize = Convert.ToInt32(chartSizeBox.Text);
+            validator.SelectedWindVelocity = Convert.ToDouble(windVelocityBox.Text);
             string caliber = caliberBox.GetItemText(caliberBox.SelectedItem);
             var s = new FunctionSeries(Y, 0, CalculateDistance(), 0.1);
 
@@ -54,10 +55,12 @@ namespace BallisticTrajectoryCalculator.Forms
             double lenght = caliberData[caliber].Lenght;
             double weight = caliberData[caliber].Weight;
             double angle = validator.SelectedAngle;
+            double windVelocity = validator.S
             BallisticCoefficient bc = new(weight, diameter, velocity, temperature, airDensity, angle);
-
+            var wa = new WindAffect(bc,);
             double bk = bc.CalculateBC();
-            validator.ballisticCoefficient = bk;
+
+            validator.BallisticCoefficient = bk;
             //velocity > machNumber.GetSonicVelocity() ? machNumber.GetMachNumber() : 0
             //string dictAsString = string.Join(", ", bullet.Calibers.Select(kv => $"{kv.Key}={kv.Value}"));
             double k = bk / 100000;
