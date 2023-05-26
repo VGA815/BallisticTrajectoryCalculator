@@ -1,4 +1,5 @@
-﻿using OxyPlot.Series;
+﻿using OxyPlot;
+using OxyPlot.Series;
 
 namespace BallisticTrajectoryCalculator.Forms
 {
@@ -17,26 +18,28 @@ namespace BallisticTrajectoryCalculator.Forms
             humidityBox.Text = "50";
             pressureBox.Text = "330";
             airDensityBox.Text = "1,2";
+            windVelocityBox.Text = "0";
         }
 
         private void createGraphButton_Click(object sender, EventArgs e)
         {
 
-            validator.ShootingAngle = Convert.ToInt32(shootAngleBox.Text);
-            validator.InitialVelocity = Convert.ToDouble(initialVelocityBox.Text);
-            validator.Pressure = Convert.ToInt32(pressureBox.Text);
-            validator.AirDensity = Convert.ToDouble(airDensityBox.Text);
-            validator.Humidity = Convert.ToInt32(humidityBox.Text);
-            validator.Temperature = Convert.ToInt32(temperatureBox.Text);
+            validator.ShootingAngle = int.Parse(shootAngleBox.Text);
+            validator.InitialVelocity = double.Parse(initialVelocityBox.Text);
+            validator.Pressure = int.Parse(pressureBox.Text);
+            validator.AirDensity = double.Parse(airDensityBox.Text);
+            validator.Humidity = int.Parse(humidityBox.Text);
+            validator.Temperature = int.Parse(temperatureBox.Text);
             validator.ItemBCbox = caliberBox.GetItemText(caliberBox.SelectedItem);
-            validator.ChartSize = Convert.ToInt32(chartSizeBox.Text);
-            validator.WindVelocity = Convert.ToDouble(windVelocityBox.Text);
+            validator.ChartSize = int.Parse(chartSizeBox.Text);
+            validator.WindVelocity = double.Parse(windVelocityBox.Text);
             string caliber = caliberBox.GetItemText(caliberBox.SelectedItem);
             var s = new FunctionSeries(Y, 0, CalculateDistance(), 0.1);
-
+            s.ToCsv();
             s.Title = $"Caliber: {caliber}\nInitial velocity: {validator.InitialVelocity}\nAngle: {validator.ShootingAngle}";
             plotModel.Series.Add(s);
             plotView.Model = plotModel;
+            
             plotView.InvalidatePlot(true);
 
 
@@ -55,9 +58,9 @@ namespace BallisticTrajectoryCalculator.Forms
             double lenght = caliberData[caliber].Lenght;
             double weight = caliberData[caliber].Weight;
             double angle = validator.ShootingAngle;
-            double windVelocity = validator.S
+            double windVelocity = validator.WindVelocity;
             BallisticCoefficient bc = new(weight, diameter, velocity, temperature, airDensity, angle);
-            var wa = new WindAffect(bc,);
+            var wa = new WindAffect(bc,windVelocity,velocity);
             double bk = bc.CalculateBC();
 
             validator.BallisticCoefficient = bk;
