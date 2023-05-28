@@ -1,34 +1,22 @@
 ﻿using OxyPlot.Series;
+using System.Data;
 using System.Text;
 
 namespace BallisticTrajectoryCalculator.ExtencionMethods
 {
     public static class FunctionSeriesExtension
     {
-        public static void ToCsv(this FunctionSeries series, string path = "./Data/data.csv")
+        async public static void ToCsv(this FunctionSeries series, string path = @"D:\BallisticTrajectoryCalculator\BallisticTrajectoryCalculator\BallisticTrajectoryCalculator\Data\data.csv")
         {
-            string separator = ",";
-            StringBuilder output = new StringBuilder();
-
-            string[] headings = { "X", "Y" };
-            output.AppendLine(string.Join(separator, headings));
+            await using var streamWriter = new StreamWriter(path, true);
+            string[] columns = { "X", "Y" };
+            await streamWriter.WriteLineAsync(string.Join(";", columns));
 
             foreach (var p in series.Points)
             {
-                string[] newLine = { p.X.ToString(), p.Y.ToString() };
-                output.AppendLine(string.Join(separator, newLine));
+                string[] row = { p.X.ToString(), p.Y.ToString() };
+                await streamWriter.WriteLineAsync(string.Join(";", row));
             }
-            try
-            {
-                File.AppendAllText(path, output.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Data could not be written to the CSV file.");
-                return;
-            }
-
-
         }
     }
 }

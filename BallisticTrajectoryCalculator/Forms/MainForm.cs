@@ -34,7 +34,7 @@ namespace BallisticTrajectoryCalculator.Forms
             validator.ChartSize = int.Parse(chartSizeBox.Text);
             validator.WindVelocity = double.Parse(windVelocityBox.Text);
             string caliber = caliberBox.GetItemText(caliberBox.SelectedItem);
-            var s = new FunctionSeries(Y, 0, CalculateDistance(), 0.001);
+            var s = new FunctionSeries(Y, 0, CalculateDistance(), 0.1);
             s.ToCsv();
             s.Title = $"Caliber: {caliber}\nInitial velocity: {validator.InitialVelocity}\nAngle: {validator.ShootingAngle}";
             plotModel.Series.Add(s);
