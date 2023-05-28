@@ -1,35 +1,34 @@
-﻿using CsvHelper;
-using CsvHelper.Configuration;
-using OxyPlot;
-using OxyPlot.Series;
-using System.Data;
+﻿using OxyPlot.Series;
+using System.Text;
 
 namespace BallisticTrajectoryCalculator.ExtencionMethods
 {
     public static class FunctionSeriesExtension
     {
-        public static void ToCsv(this FunctionSeries series, string finalFileName = "data")
+        public static void ToCsv(this FunctionSeries series, string path = "./Data/data.csv")
         {
-            var dataTable = new DataTable();
-            dataTable.Columns.Add("X", typeof(double));
-            dataTable.Columns.Add("Y", typeof(double));
+            string separator = ",";
+            StringBuilder output = new StringBuilder();
 
-            foreach (var dataPoint in series.Points)
+            string[] headings = { "X", "Y" };
+            output.AppendLine(string.Join(separator, headings));
+
+            foreach (var p in series.Points)
             {
-                dataTable.Rows.Add(dataPoint.X, dataPoint.Y);
+                string[] newLine = { p.X.ToString(), p.Y.ToString() };
+                output.AppendLine(string.Join(separator, newLine));
+            }
+            try
+            {
+                File.AppendAllText(path, output.ToString());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Data could not be written to the CSV file.");
+                return;
             }
 
-            var csvConfig = new CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture)
-            {
-                Delimiter = ",",
-                HasHeaderRecord = true // Change to false if you don't want header row
-            };
 
-            using (var writer = new StreamWriter($"./Data/{finalFileName}.csv"))
-            using (var csv = new CsvWriter(writer, csvConfig))
-            {
-                csv.WriteRecords<DataPoint>(dataTable.AsEnumerable().Select(r => new DataPoint((double)r["X"], (double)r["Y"])));
-            }
         }
     }
 }
