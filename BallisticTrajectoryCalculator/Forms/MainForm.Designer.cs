@@ -56,6 +56,7 @@ namespace BallisticTrajectoryCalculator.Forms
             windAngleBox = new TextBox();
             windVelocityBox = new TextBox();
             label11 = new Label();
+            create3dGraphBtn = new Button();
             SuspendLayout();
             // 
             // createGraphButton
@@ -269,11 +270,22 @@ namespace BallisticTrajectoryCalculator.Forms
             label11.TabIndex = 24;
             label11.Text = "Wind Velocity";
             // 
+            // create3dGraphBtn
+            // 
+            create3dGraphBtn.Location = new Point(455, 415);
+            create3dGraphBtn.Name = "create3dGraphBtn";
+            create3dGraphBtn.Size = new Size(107, 23);
+            create3dGraphBtn.TabIndex = 25;
+            create3dGraphBtn.Text = "Create 3D Graph";
+            create3dGraphBtn.UseVisualStyleBackColor = true;
+            create3dGraphBtn.Click += create3dGraphBtn_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(create3dGraphBtn);
             Controls.Add(label11);
             Controls.Add(windVelocityBox);
             Controls.Add(windAngleBox);
@@ -344,5 +356,6 @@ namespace BallisticTrajectoryCalculator.Forms
         private TextBox windAngleBox;
         private TextBox windVelocityBox;
         private Label label11;
+        private Button create3dGraphBtn;
     }
 }

@@ -1,20 +1,22 @@
 ﻿using OxyPlot.Series;
-using System.Data;
-using System.Text;
+using System.Globalization;
 
 namespace BallisticTrajectoryCalculator.ExtencionMethods
 {
     public static class FunctionSeriesExtension
     {
+        
         async public static void ToCsv(this FunctionSeries series, string path = @"D:\BallisticTrajectoryCalculator\BallisticTrajectoryCalculator\BallisticTrajectoryCalculator\Data\data.csv")
         {
+            var culture = new CultureInfo("en-US");
             await using var streamWriter = new StreamWriter(path, true);
             string[] columns = { "X", "Y" };
             await streamWriter.WriteLineAsync(string.Join(";", columns));
-
             foreach (var p in series.Points)
             {
-                string[] row = { p.X.ToString(), p.Y.ToString() };
+                double x = ((double)p.X);
+                double y = ((double)p.Y);
+                string[] row = { x.ToString("F2",culture), y.ToString("F",culture) };
                 await streamWriter.WriteLineAsync(string.Join(";", row));
             }
         }

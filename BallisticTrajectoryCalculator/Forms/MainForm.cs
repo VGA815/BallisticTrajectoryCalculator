@@ -1,5 +1,4 @@
-﻿using OxyPlot;
-using OxyPlot.Series;
+﻿using OxyPlot.Series;
 
 namespace BallisticTrajectoryCalculator.Forms
 {
@@ -9,7 +8,8 @@ namespace BallisticTrajectoryCalculator.Forms
 
         const double g = 9.81;
         public InputValidator validator = new();
-        Dictionary<string, Models.BulletParameters> caliberData = BulletJsonParser.Parse();
+        Dictionary<string, BulletParameters> caliberData = BulletJsonParser.Parse();
+
 
         public MainForm()
         {
@@ -39,7 +39,7 @@ namespace BallisticTrajectoryCalculator.Forms
             s.Title = $"Caliber: {caliber}\nInitial velocity: {validator.InitialVelocity}\nAngle: {validator.ShootingAngle}";
             plotModel.Series.Add(s);
             plotView.Model = plotModel;
-            
+
             plotView.InvalidatePlot(true);
 
 
@@ -60,7 +60,7 @@ namespace BallisticTrajectoryCalculator.Forms
             double angle = validator.ShootingAngle;
             double windVelocity = validator.WindVelocity;
             BallisticCoefficient bc = new(weight, diameter, velocity, temperature, airDensity, angle);
-            var wa = new WindAffect(bc,windVelocity,velocity);
+            var wa = new WindAffect(bc, windVelocity, velocity);
             double bk = bc.CalculateBC();
 
             validator.BallisticCoefficient = bk;
@@ -101,6 +101,25 @@ namespace BallisticTrajectoryCalculator.Forms
             plotView.InvalidatePlot(true);
 
 
+        }
+
+        private void create3dGraphBtn_Click(object sender, EventArgs e)
+        {
+            var engine = IronPython.Hosting.Python.CreateEngine();
+            var scope = engine.CreateScope();
+            scope.SetVariable("Main", this);
+
+            try
+            {
+                engine.ExecuteFile(@"D:\BallisticTrajectoryCalculator\BallisticTrajectoryCalculator\BallisticTrajectoryCalculator\Scripts\3dGraph.py", scope);
+                scope.GetVariable("Tutu");
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }
