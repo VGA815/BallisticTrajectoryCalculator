@@ -20,15 +20,18 @@ def main():
     x_pos, y_pos = 2, 0
     z_pos = np.interp(x_pos, x, y)
 
-    imbox = OffsetImage(im, zoom=0.2)
-    imbox.image.axes = ax
-    xx, yy = ax.transData.transform((x_pos, y_pos))
-    imbox.set_offset((xx, z_pos))
+def Tutu():
+    data = pd.read_csv(path, sep=';', encoding = 'cp866')
 
-    ax.add_artist(imbox)
-    ax.plot(x, z, y)
+    xx = data['X']
+    yy = data['Y']
+    zz = data['Y']
     
-    
+    x=[xx[i] for i in range(0,len(xx),200)]
+    y=[yy[i] for i in range(0,len(yy),200)]
+    z=[i for i in range(0,len(zz),200)]
+    ax.scatter(x, z, y)
+
     ax.set_xlabel('X')
     ax.set_ylabel('Z')
     ax.set_zlabel('Y')
@@ -37,5 +40,4 @@ def main():
 
     plt.show()
 
-if __name__ == '__main__':
-    main()
+Tutu()
