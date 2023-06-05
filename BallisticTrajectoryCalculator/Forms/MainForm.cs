@@ -1,5 +1,5 @@
-﻿using OxyPlot.Series;
-
+﻿using OxyPlot;
+using OxyPlot.Series;
 namespace BallisticTrajectoryCalculator.Forms
 {
 
@@ -16,9 +16,11 @@ namespace BallisticTrajectoryCalculator.Forms
             InitializeComponent();
             temperatureBox.Text = "15";
             humidityBox.Text = "50";
-            pressureBox.Text = "330";
+            pressureBox.Text = "660";
             airDensityBox.Text = "1,2";
-            windVelocityBox.Text = "0";
+            var startSeries = new FunctionSeries(stS, 0, 100, 0.1) { Color = OxyColor.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B) };
+            plotModel.Series.Add(startSeries);
+            plotView.Model = plotModel;
         }
 
         private void createGraphButton_Click(object sender, EventArgs e)
@@ -30,13 +32,11 @@ namespace BallisticTrajectoryCalculator.Forms
             validator.AirDensity = double.Parse(airDensityBox.Text);
             validator.Humidity = int.Parse(humidityBox.Text);
             validator.Temperature = int.Parse(temperatureBox.Text);
-            validator.ItemBCbox = caliberBox.GetItemText(caliberBox.SelectedItem);
             validator.ChartSize = int.Parse(chartSizeBox.Text);
-            validator.WindVelocity = double.Parse(windVelocityBox.Text);
-            string caliber = caliberBox.GetItemText(caliberBox.SelectedItem);
+            validator.ItemBCbox = (string)caliberBox.SelectedItem;
             var s = new FunctionSeries(Y, 0, CalculateDistance(), 0.1);
             s.ToCsv();
-            s.Title = $"Caliber: {caliber}\nInitial velocity: {validator.InitialVelocity}\nAngle: {validator.ShootingAngle}";
+            s.Title = $"Caliber: {validator.ItemBCbox}\nInitial velocity: {validator.InitialVelocity}\nAngle: {validator.ShootingAngle}";
             plotModel.Series.Add(s);
             plotView.Model = plotModel;
 
@@ -44,33 +44,27 @@ namespace BallisticTrajectoryCalculator.Forms
 
 
         }
+
         public double Y(double xo)
         {
-
-
+            const double g = 9.81;
             double velocity = validator.InitialVelocity;
             int temperature = validator.Temperature;
-            int humidity = validator.Humidity;
-            int pressure = validator.Pressure;
             double airDensity = validator.AirDensity;
-            string caliber = caliberBox.GetItemText(caliberBox.SelectedItem);
+            string caliber = (string)caliberBox.SelectedItem;
             double diameter = caliberData[caliber].Diameter;
-            double lenght = caliberData[caliber].Lenght;
             double weight = caliberData[caliber].Weight;
             double angle = validator.ShootingAngle;
-            double windVelocity = validator.WindVelocity;
             BallisticCoefficient bc = new(weight, diameter, velocity, temperature, airDensity, angle);
-            var wa = new WindAffect(bc, windVelocity, velocity);
             double bk = bc.CalculateBC();
 
-            validator.BallisticCoefficient = bk;
-            //velocity > machNumber.GetSonicVelocity() ? machNumber.GetMachNumber() : 0
+
+            validator.BallisticCoefficient = bk;            //velocity > machNumber.GetSonicVelocity() ? machNumber.GetMachNumber() : 0
             //string dictAsString = string.Join(", ", bullet.Calibers.Select(kv => $"{kv.Key}={kv.Value}"));
-            double k = bk / 100000;
+            double k = bc.cd / 1000000;
+            
 
 
-            bcBox.Text = Convert.ToString(k);
-            double A = (Math.PI * Math.Pow(diameter, 2) / 4);
 
             //double v = Math.Sqrt((2 * weight * g) / (airDensity * A * dragCoefficient.GetCd())) * Math.Tanh(Math.Sqrt((airDensity * A * dragCoefficient.GetCd() * g * xo) / (2 * weight)));
             double v = velocity;
@@ -84,7 +78,6 @@ namespace BallisticTrajectoryCalculator.Forms
             //var y = 1.5 + (xo * Math.Tan(a)) - (g * Math.Pow(xo, 2)) / (2 * Math.Pow(v, 2) * Math.Pow(Math.Cos(a), 2)) + (Math.Pow(xo, 2) * (Math.Pow(k, 2) * Math.Pow(v, 2) * Math.Pow(Math.Cos(a), 2) / (Math.Pow(g, 2)))) / (2 * Math.Pow(v, 2) * Math.Pow(Math.Cos(a), 2) * Math.Sqrt((Math.Pow(k, 2) * Math.Pow(v, 4) * Math.Pow(Math.Cos(a), 4))) / (Math.Pow(g, 2)) + 1);
             return y;
         }
-
         public double CalculateDistance()
         {
             //double velocity = validator.SelectedInitialVelocity;
@@ -99,27 +92,34 @@ namespace BallisticTrajectoryCalculator.Forms
             plotModel.Series.Clear();
             plotView.Model = plotModel;
             plotView.InvalidatePlot(true);
-
+            var startSeries = new FunctionSeries(stS, 0, 100, 0.1) { Color = OxyColor.FromArgb(BackColor.A, BackColor.R, BackColor.G, BackColor.B) };
+            plotModel.Series.Add(startSeries);
+            plotView.Model = plotModel;
+            string filePath = @"D:\BallisticTrajectoryCalculator\BallisticTrajectoryCalculator\BallisticTrajectoryCalculator\Data\data.csv";
+            File.WriteAllText(filePath, string.Empty);
 
         }
 
         private void create3dGraphBtn_Click(object sender, EventArgs e)
         {
-            var engine = IronPython.Hosting.Python.CreateEngine();
-            var scope = engine.CreateScope();
-            scope.SetVariable("Main", this);
+            //var ipy = Python.CreateRuntime();
+            //var engine = ipy.GetEngine("Python");
 
-            try
-            {
-                engine.ExecuteFile(@"D:\BallisticTrajectoryCalculator\BallisticTrajectoryCalculator\BallisticTrajectoryCalculator\Scripts\3dGraph.py", scope);
-                scope.GetVariable("Tutu");
-                
-            }
-            catch (Exception)
-            {
 
-                throw;
-            }
+            //var paths = engine.GetSearchPaths();
+            //paths.Add(@"D:\BallisticTrajectoryCalculator\BallisticTrajectoryCalculator\BallisticTrajectoryCalculator\Scripts\3dGraph.py");
+            //engine.SetSearchPaths(paths);
+            //ipy.UseFile(@"D:\BallisticTrajectoryCalculator\BallisticTrajectoryCalculator\BallisticTrajectoryCalculator\Scripts\3dGraph.py");
+        }
+        private static double stS(double xo)
+        {
+            double a = 45.0.ToRadians();
+            int v = 250;
+            double k = 0.00001;
+
+
+            double y = 1.5 + xo * Math.Tan(a) - (g * Math.Pow(xo, 2) / (2 * Math.Pow(v, 2) * Math.Pow(Math.Cos(a), 2))) * (1 + k * Math.Pow(v, 2) * xo);
+            return y;
         }
     }
 }

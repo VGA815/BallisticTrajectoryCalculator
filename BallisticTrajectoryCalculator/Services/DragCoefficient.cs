@@ -24,11 +24,11 @@ namespace BallisticTrajectoryCalculator.Services
             this.angle = angle.ToRadians();
         }
 
-        public double GetCd(bool isSupersonic = false)
+        public double CalculateCd(bool isSupersonic = false)
         {
-            // Расчёт коэффициента лобового сопротивления
-            double projectileArea = diameter.CrossSectionArea(); // площадь поперечного сечения пули (в квадратных метрах)
-            double atmosphericDensity = density; // плотность воздуха (в килограммах на кубический метр)
+           
+            double projectileArea = diameter.CrossSectionArea(); 
+            double atmosphericDensity = density; 
 
             double Cd;
             if (isSupersonic)

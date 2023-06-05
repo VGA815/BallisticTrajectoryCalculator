@@ -1,19 +1,19 @@
 {
   "22 LR": {
     "Name" : "22 LR",
-    "Diameter": 5.0,
+    "Diameter": 5.59,
     "Length": 40.0,
     "Weight": 2.0
   },
   "223 Remington": {
     "Name" : "223 Remington",
-    "Diameter": 5.7,
+    "Diameter": 5.69,
     "Length": 55.0,
     "Weight": 3.56
   },
   "308 Winchester": {
     "Name" : "308 Winchester",
-    "Diameter": 7.62,
+    "Diameter": 7.82,
     "Length": 71.0,
     "Weight": 9.7
   },
@@ -25,7 +25,7 @@
   },
   "50 BMG": {
     "Name" : "50 BMG",
-    "Diameter": 12.7,
+    "Diameter": 12.95,
     "Length": 147.0,
     "Weight": 48.0
   }

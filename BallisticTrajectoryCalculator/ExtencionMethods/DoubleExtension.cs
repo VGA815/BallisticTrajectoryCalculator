@@ -14,7 +14,6 @@
         /// </summary>
         /// <param name="diameter"></param>
         /// <returns></returns>
-        public static double CrossSectionArea(this double diameter) => Math.PI * Math.Pow(diameter / 1000.0 / 2.0, 2.0);
-
+        public static double CrossSectionArea(this double diameter) => Math.PI * Math.Pow(diameter / 1000.0 / 2.0, 2.0);        
     }
 }

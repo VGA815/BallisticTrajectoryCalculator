@@ -9,12 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Scripts\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IronPython" Version="3.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="OxyPlot.WindowsForms" Version="2.1.2" />
   </ItemGroup>

@@ -2,13 +2,13 @@
 {
     public class BallisticCoefficient
     {
-        private double cd;
+        public double cd;
         private double mass;
         private double diameter;
         public BallisticCoefficient(double mass, double diameter, double velocity, double temperature, double density, double angle)
         {
             var dragCoefficient = new DragCoefficient(mass, diameter, velocity, temperature, density, angle);
-            this.cd = dragCoefficient.GetCd();
+            this.cd = dragCoefficient.CalculateCd();
             this.mass = mass;
             this.diameter = diameter;
         }

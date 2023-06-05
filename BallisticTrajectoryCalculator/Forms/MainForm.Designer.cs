@@ -39,8 +39,6 @@ namespace BallisticTrajectoryCalculator.Forms
             pressureBox = new TextBox();
             humidityBox = new TextBox();
             airDensityBox = new TextBox();
-            bcBox = new TextBox();
-            label1 = new Label();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
@@ -52,11 +50,6 @@ namespace BallisticTrajectoryCalculator.Forms
             clearGraphButton = new Button();
             chartSizeBox = new TextBox();
             label9 = new Label();
-            label10 = new Label();
-            windAngleBox = new TextBox();
-            windVelocityBox = new TextBox();
-            label11 = new Label();
-            create3dGraphBtn = new Button();
             SuspendLayout();
             // 
             // createGraphButton
@@ -120,22 +113,6 @@ namespace BallisticTrajectoryCalculator.Forms
             airDensityBox.Name = "airDensityBox";
             airDensityBox.Size = new Size(81, 23);
             airDensityBox.TabIndex = 7;
-            // 
-            // bcBox
-            // 
-            bcBox.Location = new Point(126, 128);
-            bcBox.Name = "bcBox";
-            bcBox.Size = new Size(75, 23);
-            bcBox.TabIndex = 8;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 131);
-            label1.Name = "label1";
-            label1.Size = new Size(108, 15);
-            label1.TabIndex = 9;
-            label1.Text = "Ballistic Coefficient";
             // 
             // label2
             // 
@@ -238,58 +215,11 @@ namespace BallisticTrajectoryCalculator.Forms
             label9.TabIndex = 20;
             label9.Text = "Chart Size";
             // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Location = new Point(51, 247);
-            label10.Name = "label10";
-            label10.Size = new Size(69, 15);
-            label10.TabIndex = 21;
-            label10.Text = "Wind Angle";
-            // 
-            // windAngleBox
-            // 
-            windAngleBox.Location = new Point(126, 244);
-            windAngleBox.Name = "windAngleBox";
-            windAngleBox.Size = new Size(75, 23);
-            windAngleBox.TabIndex = 22;
-            // 
-            // windVelocityBox
-            // 
-            windVelocityBox.Location = new Point(126, 273);
-            windVelocityBox.Name = "windVelocityBox";
-            windVelocityBox.Size = new Size(75, 23);
-            windVelocityBox.TabIndex = 23;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Location = new Point(41, 276);
-            label11.Name = "label11";
-            label11.Size = new Size(79, 15);
-            label11.TabIndex = 24;
-            label11.Text = "Wind Velocity";
-            // 
-            // create3dGraphBtn
-            // 
-            create3dGraphBtn.Location = new Point(455, 415);
-            create3dGraphBtn.Name = "create3dGraphBtn";
-            create3dGraphBtn.Size = new Size(107, 23);
-            create3dGraphBtn.TabIndex = 25;
-            create3dGraphBtn.Text = "Create 3D Graph";
-            create3dGraphBtn.UseVisualStyleBackColor = true;
-            create3dGraphBtn.Click += create3dGraphBtn_Click;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(create3dGraphBtn);
-            Controls.Add(label11);
-            Controls.Add(windVelocityBox);
-            Controls.Add(windAngleBox);
-            Controls.Add(label10);
             Controls.Add(label9);
             Controls.Add(chartSizeBox);
             Controls.Add(clearGraphButton);
@@ -301,8 +231,6 @@ namespace BallisticTrajectoryCalculator.Forms
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(bcBox);
             Controls.Add(airDensityBox);
             Controls.Add(humidityBox);
             Controls.Add(pressureBox);
@@ -352,10 +280,6 @@ namespace BallisticTrajectoryCalculator.Forms
         private Button clearGraphButton;
         private TextBox chartSizeBox;
         private Label label9;
-        private Label label10;
-        private TextBox windAngleBox;
-        private TextBox windVelocityBox;
-        private Label label11;
         private Button create3dGraphBtn;
     }
 }
