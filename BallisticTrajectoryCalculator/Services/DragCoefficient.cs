@@ -4,10 +4,10 @@ namespace BallisticTrajectoryCalculator.Services
 {
     public class DragCoefficient
     {
-        private double mass;                // масса пули (в граммах)
-        private double diameter;            // диаметр пули (в миллиметрах)
-        private double velocity;            // скорость пули (в метрах в секунду)
-        private double temperature;         // температура воздуха (в градусах Цельсия)
+        private double mass;                
+        private double diameter;            
+        private double velocity;            
+        private double temperature;         
         private double density;
         private double angle;
 
