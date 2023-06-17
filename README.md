@@ -22,5 +22,5 @@ Contributions are welcome! Here's how you can contribute to the Ballistic Trajec
 ## Contact
 If you have any questions, suggestions, or feedback, please feel free to contact the project maintainer:
 * GitHub: VGA815
-* Discord: VGA#9548
+* Discord: vga_cheat_for_life
 ### We appreciate your interest and contributions to the Ballistic Trajectory Calculator project!
